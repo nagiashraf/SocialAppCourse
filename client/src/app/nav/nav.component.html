@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
   <div class="container">
-    <a class="navbar-brand" href="#">Dating App</a>
+    <a class="navbar-brand" routerLink="/">Dating App</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,18 +8,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul *ngIf="accountService.currentUser$ | async" class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Mathces</a>
+          <a class="nav-link" routerLink="/members" routerLinkActive="active">Mathces</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Lists</a>
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active">Lists</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Messages</a>
+          <a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
         </li>
       </ul>
-      <div class="dropdown" *ngIf="accountService.currentUser$ | async">
-        <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
-          Welcome User
+      <div class="dropdown" *ngIf="accountService.currentUser$ | async as user">
+        <a class="dropdown-toggle text-dark" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+          Welcome {{ user.username | titlecase }}
         </a>
 
         <ul class="dropdown-menu mt-3">
@@ -41,7 +41,7 @@
           class="form-control me-2" 
           type="password" 
           placeholder="Password">
-        <button class="btn btn-outline-success" type="submit">Login</button>
+        <button class="btn btn-success" type="submit">Login</button>
       </form>
     </div>
   </div>
