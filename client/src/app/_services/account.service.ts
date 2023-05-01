@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, ReplaySubject } from 'rxjs';
 import { User } from '../_models/user';
@@ -27,7 +27,11 @@ export class AccountService {
   }
 
   register(model: any) {
-    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+    return this.http.post(this.baseUrl + 'account/register', model, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).pipe(
       map((user: User) => {
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
