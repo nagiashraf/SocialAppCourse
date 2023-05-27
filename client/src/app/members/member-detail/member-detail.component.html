@@ -53,8 +53,7 @@
         <p>{{member.interests}}</p>
       </div>
       <div class="tab-pane fade" id="photos" role="tabpanel">
-        <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery> -->
-        Photos Gallery
+        <gallery [items]="images" thumbPosition="left" imageSize="cover"></gallery>
       </div>
       <div class="tab-pane fade" id="messages" role="tabpanel">Messages</div>
     </div>

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { NgxSpinnerModule } from 'ngx-spinner';
-// import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-
+import { GalleryModule } from 'ng-gallery';
+import { NgxUploaderModule } from 'ngx-uploader';
 
 @NgModule({
   declarations: [],
@@ -12,14 +12,16 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CommonModule,
     FontAwesomeModule,
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
-    NgxSpinnerModule
-    // NgxGalleryModule
+    NgxSpinnerModule,
+    GalleryModule,
+    NgxUploaderModule
   ],
   exports: [
     FontAwesomeModule,
     ToastrModule,
-    NgxSpinnerModule
-    // NgxGalleryModule
+    NgxSpinnerModule,
+    GalleryModule,
+    NgxUploaderModule
   ]
 })
 export class SharedModule { }

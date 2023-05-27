@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^15.1.0",
+    "@angular/cdk": "^15.0.0",
     "@angular/common": "^15.1.0",
     "@angular/compiler": "^15.1.0",
     "@angular/core": "^15.1.0",
@@ -25,8 +26,10 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "bootstrap": "^5.2.3",
     "bootswatch": "^5.2.3",
+    "ng-gallery": "^8.0.0",
     "ngx-spinner": "^15.0.1",
     "ngx-toastr": "^16.1.1",
+    "ngx-uploader": "^11.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

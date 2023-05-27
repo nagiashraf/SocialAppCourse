@@ -1,0 +1,79 @@
+<div class="row">
+  <div *ngFor="let photo of member.photos" class="col-lg-2 mb-2">
+    <img src="{{photo.url}}" class="img-thumbnail p-1 mb-1">
+    <div class="text-center">
+      <button
+        [disabled]="photo.isMain"
+        (click)="setMainPhoto(photo)"
+        [ngClass]='photo.isMain ? "btn-success" : "btn-outline-success"'
+        class="btn btn-sm "
+      >
+        Main
+      </button>
+      <button
+        [disabled]="photo.isMain"
+        (click)="deletePhoto(photo.id)"
+        class="btn btn-sm btn-danger"
+      >
+        <fa-icon [icon]="faTrash"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <div
+        class="drop-container"
+        ngFileDrop
+        [options]="options"
+        (uploadOutput)="onUploadOutput($event)"
+        [uploadInput]="uploadInput"
+        [ngClass]="{ 'is-drop-over': dragOver }"
+        (click)="fileInput.click()"
+        >
+          <fa-icon [icon]="faUpload" size="3x"></fa-icon>
+          <p class="mt-3">Drag and drop a photo here or click to upload</p>
+          <input
+          #fileInput
+          type="file"
+          style="display: none;"
+          ngFileSelect
+          [options]="options"
+          (uploadOutput)="onUploadOutput($event)"
+          [uploadInput]="uploadInput"
+        />
+        </div>
+    </div>
+    <div *ngIf="files.length > 0" class="col-md-7 align-self-center">
+      <div class="file-info">
+        <div class="file-name"><span><strong>Name:</strong></span><span>{{files[0].name}}</span></div>
+        <div class="file-size"><span><strong>Size:</strong></span><span> {{(files[0].size / 1000000).toPrecision(2)}} MB</span></div>
+        <div class="progress mb-2">
+          <div
+            class="progress-bar progress-bar-striped bg-primary"
+            role="progressbar"
+            aria-label="Primary striped example"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [style.width.%]="files[0].progress.data.percentage"
+            [attr.aria-valuenow]="files[0].progress.data.percentage"
+            >
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="startUpload()">
+          <fa-icon [icon]="faUpload" class="me-1"></fa-icon>
+          Start Upload
+        </button>
+        <button class="btn btn-secondary" (click)="cancelUpload(files[0].id)">
+          <fa-icon [icon]="faBan" class="me-1"></fa-icon>
+          Cancel
+        </button>
+        <button class="btn btn-danger" (click)="removeFile(files[0].id)">
+          <fa-icon [icon]="faTrash" class="me-1"></fa-icon>
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
