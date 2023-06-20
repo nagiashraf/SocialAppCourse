@@ -24,9 +24,9 @@
         </li>
       </ul>
       <div class="dropdown" *ngIf="accountService.currentUser$ | async as user">
-        <img src="{{user.mainPhotoUrl}}" alt="Profile Picture">
+        <img src="{{user.mainPhotoUrl || './assets/user.png'}}" alt="Profile Picture">
         <a class="dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
-          Welcome {{ user.username | titlecase }}
+          Welcome {{ user.knownAs | titlecase }}
         </a>
 
         <ul class="dropdown-menu mt-3">

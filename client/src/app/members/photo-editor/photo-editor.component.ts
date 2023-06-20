@@ -89,6 +89,11 @@ export class PhotoEditorComponent {
         const photo: Photo = output.file.response;
         if (photo) {
           this.member.photos.push(photo);
+          if (photo.isMain) {
+            this.member.photoUrl = photo.url;
+            this.user.mainPhotoUrl = photo.url;
+            this.accountService.setCurrentUser(this.user);
+          }
           this.files = [];
         }
         break;

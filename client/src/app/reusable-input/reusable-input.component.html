@@ -1,0 +1,10 @@
+<div class="mb-3">
+  <input
+    [formControl]="ngControl.control"
+    type="{{type}}"
+    class="form-control"
+    placeholder="{{label}}"
+    [class.is-invalid]="ngControl.invalid && ngControl.touched">
+    <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">Please enter a {{label}}</div>
+    <div *ngIf="ngControl.control.errors?.isMatching" class="invalid-feedback">Confirm password must match password</div>
+</div>
