@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
   <div class="container">
-    <a class="navbar-brand text-white"routerLink="/">Dating App</a>
+    <a class="navbar-brand text-white"routerLink="/">Social App</a>
     <button 
       class="navbar-toggler"
       type="button" data-bs-toggle="collapse"
@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul *ngIf="accountService.currentUser$ | async" class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/members" routerLinkActive="active">Mathces</a>
+          <a class="nav-link" routerLink="/members" routerLinkActive="active">Find</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/lists" routerLinkActive="active">Lists</a>

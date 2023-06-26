@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { faEnvelope, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faHeart, faThumbsUp, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Member } from 'src/app/_models/member';
 
 @Component({
@@ -9,7 +9,7 @@ import { Member } from 'src/app/_models/member';
 })
 export class MemberCardComponent {
   faUser = faUser;
-  faHeart = faHeart;
+  faThumbsup = faThumbsUp;
   faEnvlope = faEnvelope;
   @Input() member: Member;
 }

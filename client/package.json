@@ -28,6 +28,7 @@
     "bootswatch": "^5.2.3",
     "ng-gallery": "^8.0.0",
     "ngx-spinner": "^15.0.1",
+    "ngx-timeago": "^2.0.0",
     "ngx-toastr": "^16.1.1",
     "ngx-uploader": "^11.0.0",
     "rxjs": "~7.8.0",

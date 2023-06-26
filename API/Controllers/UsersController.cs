@@ -37,11 +37,6 @@ public class UsersController : ControllerBase
 
         userParams.CurrentUsername = username;
 
-        if(string.IsNullOrEmpty(userParams.Gender))
-        {
-            userParams.Gender = user.Gender == "male" ? "female" : "male";
-        }
-
         var users = await _userRepository.GetMembersAsync(userParams);
 
         Response.AddPaginationHeader(users.PageIndex, users.PageSize, users.TotalUsersCount, users.TotalPagesCount);

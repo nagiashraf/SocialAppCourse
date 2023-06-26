@@ -51,7 +51,6 @@ public class TokensController : ControllerBase
         return new UserDto
         {
             Username = user.UserName,
-            Gender = user.Gender,
             KnownAs = user.KnownAs,
             Token = new JwtSecurityTokenHandler().WriteToken(newAccessSecurityToken),
             TokenExpirationTime = newAccessSecurityToken.ValidTo,

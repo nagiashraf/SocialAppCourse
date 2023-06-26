@@ -37,7 +37,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         var info = new OpenApiInfo()
         {
-            Title = "Dating App",
+            Title = "Social App",
             Version = description.ApiVersion.ToString(),
             Description = "An application where users can like and message each others.",
             Contact = new OpenApiContact() { Name = "Email", Email = "bill.mei@somewhere.com" },

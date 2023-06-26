@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GalleryModule } from 'ng-gallery';
 import { NgxUploaderModule } from 'ngx-uploader';
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [],
@@ -14,14 +15,16 @@ import { NgxUploaderModule } from 'ngx-uploader';
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
     NgxSpinnerModule,
     GalleryModule,
-    NgxUploaderModule
+    NgxUploaderModule,
+    TimeagoModule.forRoot()
   ],
   exports: [
     FontAwesomeModule,
     ToastrModule,
     NgxSpinnerModule,
     GalleryModule,
-    NgxUploaderModule
+    NgxUploaderModule,
+    TimeagoModule
   ]
 })
 export class SharedModule { }

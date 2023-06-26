@@ -1,4 +1,4 @@
-# DatingAppCourse
+# SocialAppCourse
 
 This is a social app built using .NET 6 and Angular 15 where users can like and message each other. This a training course presented by Neil Cummings on Udemy.
 

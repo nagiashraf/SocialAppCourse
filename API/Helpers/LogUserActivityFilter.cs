@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using API.Data;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -18,13 +17,12 @@ public class LogUserActivityFilter : IAsyncActionFilter
 
         if(!executedContext.HttpContext.User.Identity.IsAuthenticated) return;
 
-        var username = executedContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var username = executedContext.HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
         var user = await _userRepository.GetUserByUsernameAsync(username);
 
         if(user != null)
         {
             user.LastActive = DateTime.Now;
-
             await _userRepository.UpdateAsync(user);
         }
     }

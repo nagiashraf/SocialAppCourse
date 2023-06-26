@@ -104,7 +104,7 @@ public class UserRepository : IUserRepository
 
         IQueryable<MemberDto> users = _context.Users
             .Where(u => u.UserName != userParams.CurrentUsername)
-            .Where(u => u.Gender == userParams.Gender)
+            .Where(u => userParams.Gender == null || u.Gender == userParams.Gender)
             .Where(u => u.DateOfBirth >= dobMin && u.DateOfBirth <= dobMax)
             .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
             .AsNoTracking();

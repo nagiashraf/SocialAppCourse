@@ -9,7 +9,7 @@
       </li>
       <li class="list-inline-item">
         <button class="btn btn-primary">
-          <fa-icon [icon]="faHeart"></fa-icon>
+          <fa-icon [icon]="faThumbsup"></fa-icon>
         </button>
       </li>
       <li class="list-inline-item">
@@ -20,7 +20,7 @@
     </ul>
   </div>
   <div class="card-body text-center">
-    <h6 class="card-title"><fa-icon [icon]="faUser" class="me-2"></fa-icon>{{member.knownAs}}</h6>
+    <h6 class="card-title"><fa-icon [icon]="faUser" class="me-2"></fa-icon>{{member.knownAs}}, {{member.age}}</h6>
     <p class="card-text text-muted">{{member.city}}</p>
   </div>
 </div>

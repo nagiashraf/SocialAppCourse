@@ -55,8 +55,7 @@ namespace API.Controllers
                 TokenExpirationTime = jwtSecurityToken.ValidTo,
                 RefreshToken = user.RefreshToken,
                 RefreshTokenExpirationTime = user.RefreshTokenExpirationDate,
-                KnownAs = user.KnownAs,
-                Gender = user.Gender
+                KnownAs = user.KnownAs
             };
         }
         
@@ -84,8 +83,7 @@ namespace API.Controllers
                 RefreshToken = user.RefreshToken,
                 RefreshTokenExpirationTime = user.RefreshTokenExpirationDate,
                 MainPhotoUrl = user.Photos.FirstOrDefault(ph => ph.IsMain)?.Url,
-                KnownAs = user.KnownAs,
-                Gender = user.Gender
+                KnownAs = user.KnownAs
             };
         }
 
