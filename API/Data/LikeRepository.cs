@@ -43,7 +43,7 @@ public class LikeRepository : ILikeRepository
             users = likes.Select(like => like.LikedUser);
         }
 
-        if(likesParams.Predicate == "likers")
+        if(likesParams.Predicate == "liking")
         {
             likes = likes.Where(like => like.LikedUserId == likesParams.UserId);
             users = likes.Select(like => like.LikeSourceUser);

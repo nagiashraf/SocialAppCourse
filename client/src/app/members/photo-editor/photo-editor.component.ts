@@ -46,7 +46,7 @@ export class PhotoEditorComponent {
     this.membersService.setMainPhoto(photo.id).subscribe(() => {
       this.user.mainPhotoUrl = photo.url;
       this.accountService.setCurrentUser(this.user);
-      this.member.photoUrl = photo.url;
+      this.member.mainPhotoUrl = photo.url;
       this.member.photos.forEach(ph => {
         if (ph.isMain) ph.isMain = false;
         if (ph.id === photo.id) ph.isMain = true;
@@ -90,7 +90,7 @@ export class PhotoEditorComponent {
         if (photo) {
           this.member.photos.push(photo);
           if (photo.isMain) {
-            this.member.photoUrl = photo.url;
+            this.member.mainPhotoUrl = photo.url;
             this.user.mainPhotoUrl = photo.url;
             this.accountService.setCurrentUser(this.user);
           }
