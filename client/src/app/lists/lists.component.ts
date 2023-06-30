@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LikesService } from '../_services/likes.service';
 import { Member } from '../_models/member';
 import { Pagination } from '../_models/pagination';
@@ -14,7 +14,6 @@ export class ListsComponent implements OnInit {
   pageNumber = 1;
   pageSize = 5;
   pagination: Pagination;
-  pageNumbers: number[];
 
   constructor(private likesService: LikesService) {
 
@@ -27,19 +26,13 @@ export class ListsComponent implements OnInit {
     this.likesService.getLikes(this.predicate, this.pageNumber, this.pageSize).subscribe(response => {
       this.members = response.result;
       this.pagination = response.pagination;
-      this.setPageNumbers();
     });
   };
 
-  pageChanged(pageNumber: number) {
-    this.pageNumber = pageNumber;
-    this.loadLikes();
-  }
-
-  setPageNumbers() {
-    this.pageNumbers = [];
-    for (let i = 1; i <= this.pagination.totalPages; i++) {
-      this.pageNumbers.push(i);
+  onPageChanged(pageNumber: number) {
+    if (this.pageNumber !== pageNumber) {
+      this.pageNumber = pageNumber;
+      this.loadLikes();
     }
   }
 }

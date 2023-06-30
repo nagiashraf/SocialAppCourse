@@ -1,6 +1,6 @@
 <div *ngIf="member" class="row">
   <div class="card col-lg-4">
-  <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="img-thumbnail">
+  <img src="{{member.mainPhotoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="img-thumbnail">
     <div class="card-body">
       <div>
         <strong>Location:</strong>
@@ -22,43 +22,45 @@
     <div class="card-footer">
       <div class="btn-group d-flex">
         <button class="btn btn-primary">Like</button>
-        <button class="btn btn-success">Message</button>
+        <button (click)="setActiveTab('messages')" class="btn btn-success">Message</button>
       </div>
     </div>
   </div>
   <div class="col-lg-8">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab">About {{member.username}}</button>
+    <ul #tabs class="nav nav-tabs" id="myTab">
+      <li class="nav-item">
+        <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button">About {{member.knownAs}}</button>
       </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="interests-tab" data-bs-toggle="tab" data-bs-target="#interests" type="button" role="tab">Interests</button>
+      <li class="nav-item">
+        <button class="nav-link" id="interests-tab" data-bs-toggle="tab" data-bs-target="#interests" type="button">Interests</button>
       </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button" role="tab">Photos</button>
+      <li class="nav-item">
+        <button class="nav-link" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button">Photos</button>
       </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab">Messages</button>
+      <li class="nav-item">
+        <button (click)="loadMessages()" (tabActivated)="onMessageTabActivated($event)" class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button">Messages</button>
       </li>
     </ul>
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="about" role="tabpanel">
+    <div #tabContents class="tab-content" id="TabContent">
+      <div class="tab-pane fade show active" id="about">
         <h4 *ngIf="!member.introduction">No description added</h4>
         <h4 *ngIf="member.introduction">Description</h4>
         <p>{{member.introduction}}</p>
         <h4 *ngIf="member.lookingFor">Looking for</h4>
         <p>{{member.lookingFor}}</p>
       </div>
-      <div class="tab-pane fade" id="interests" role="tabpanel">
+      <div class="tab-pane fade" id="interests">
         <h4 *ngIf="!member.interests">No interests added</h4>
         <h4 *ngIf="member.interests">Interests</h4>
         <p>{{member.interests}}</p>
       </div>
-      <div class="tab-pane fade" id="photos" role="tabpanel">
+      <div class="tab-pane fade" id="photos">
         <h4 *ngIf="member.photos?.length <= 0">No photos added</h4>
         <gallery *ngIf="member.photos?.length > 0" [items]="images" thumbPosition="left" imageSize="cover"></gallery>
       </div>
-      <div class="tab-pane fade" id="messages" role="tabpanel">Messages</div>
+      <div class="tab-pane fade" id="messages">
+        <app-member-messages [messages]="messages" [username]="member.username"></app-member-messages>
+      </div>
     </div>
   </div>
 </div>

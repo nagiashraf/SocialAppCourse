@@ -17,30 +17,9 @@
     </div>
   </div>
 </div>
-<ul *ngIf="pagination" class="pagination justify-content-center">
-  <li [class.disabled]="pagination.currentPage <= 1" class="page-item">
-    <button [disabled]="pagination.currentPage <= 1" (click)="pageChanged(1)" class="page-link">
-      <span>&laquo;</span>
-    </button>
-  </li>
-  <li [class.disabled]="pagination.currentPage <= 1" class="page-item">
-    <button [disabled]="pagination.currentPage <= 1" (click)="pageChanged(pagination.currentPage - 1)" class="page-link">
-      <span>&lsaquo;</span>
-    </button>
-  </li>
-  <li *ngFor="let page of pageNumbers" (click)="pageChanged(page)" [class.active]="page === pagination.currentPage" class="page-item">
-    <button class="page-link">
-      {{ page }}
-    </button>
-  </li>
-  <li [class.disabled]="pagination.currentPage >= pagination.totalPages" class="page-item">
-    <button [disabled]="pagination.currentPage >= pagination.totalPages" (click)="pageChanged(pagination.currentPage + 1)" class="page-link">
-      <span>&rsaquo;</span>
-    </button>
-  </li>
-  <li [class.disabled]="pagination.currentPage >= pagination.totalPages" class="page-item">
-    <button [disabled]="pagination.currentPage >= pagination.totalPages" (click)="pageChanged(pagination.totalPages)" class="page-link">
-      <span>&raquo;</span>
-    </button>
-  </li>
-</ul>
+<app-pagination
+  *ngIf="pagination"
+  [currentPage]="pagination.currentPage"
+  [totalPages]="pagination.totalPages"
+  (pageChanged)="onPageChanged($event)">
+</app-pagination>

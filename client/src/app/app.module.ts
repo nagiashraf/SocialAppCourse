@@ -23,6 +23,8 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { ReusableInputComponent } from './reusable-input/reusable-input.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { ReusableInputComponent } from './reusable-input/reusable-input.componen
     MemberCardComponent,
     MemberEditComponent,
     PhotoEditorComponent,
-    ReusableInputComponent
+    ReusableInputComponent,
+    PaginationComponent,
+    MemberMessagesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,48 @@
-<p>messages works!</p>
+<div class="row mb-4">
+  <div class="btn-group">
+    <input [(ngModel)]="container" (change)="loadMessages()" type="radio" class="btn-check" name="container" value="unread" id="unread" autocomplete="off">
+    <label class="btn btn-outline-primary" for="unread"><fa-icon [icon]="faEnvelope"></fa-icon> Unread</label>
+    <input [(ngModel)]="container" (change)="loadMessages()" type="radio" class="btn-check" name="container" value="inbox" id="inbox" autocomplete="off">
+    <label class="btn btn-outline-primary" for="inbox"><fa-icon [icon]="faEnvelopeOpen"></fa-icon> Inbox</label>
+    <input [(ngModel)]="container" (change)="loadMessages()" type="radio" class="btn-check" name="container" value="outbox" id="outbox" autocomplete="off">
+    <label class="btn btn-outline-primary" for="outbox"><fa-icon [icon]="faPaperPlane"></fa-icon> Outbox</label>
+  </div>
+</div>
+<div *ngIf="messages?.length === 0" class="row">
+  <h3>No messages</h3>
+</div>
+<div *ngIf="messages?.length > 0" class="row">
+  <table class="table table-hover" style="cursor: pointer;">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 40%;">Message</th>
+        <th scope="col" style="width: 20%;">From/To</th>
+        <th scope="col" style="width: 20%;">Sent/Received</th>
+        <th scope="col" style="width: 20%;"></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="!messagesLoading">
+      <tr *ngFor="let message of messages" 
+        routerLink="{{container === 'outbox' ? '/members/' + message.recipientUsername : '/members/' + message.senderUsername}}"
+        [queryParams]="{tab:'messages'}">
+        <td>{{ message.content }}</td>
+        <td *ngIf="container === 'outbox'">
+          <img [src]="message.recipientPhotoUrl" [alt]="message.recipientUsername" class="rounded-circle">
+          <strong>{{ message.recipientUsername | titlecase }}</strong>
+        </td>
+        <td *ngIf="container !== 'outbox'">
+          <img [src]="message.senderPhotoUrl" [alt]="message.senderUsername" class="rounded-circle">
+          <strong>{{ message.senderUsername | titlecase }}</strong>
+        </td>
+        <td>{{ message.messageSentAt | timeago }}</td>
+        <td><button (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)" class="btn btn-danger">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<app-pagination
+  *ngIf="pagination && messages.length > 0 && !messagesLoading"
+  [currentPage]="pagination.currentPage"
+  [totalPages]="pagination.totalPages"
+  (pageChanged)="onPageChanged($event)">
+</app-pagination>

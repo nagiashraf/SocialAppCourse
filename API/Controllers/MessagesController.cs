@@ -69,7 +69,7 @@ public class MessagesController : ControllerBase
 
         if (message is null) return NotFound("Message not found");
 
-        if (message.SenderUsername != username || message.RecipientUsername != username) return Unauthorized();
+        if (message.SenderUsername != username && message.RecipientUsername != username) return Unauthorized();
 
         await _messageRepository.DeleteMessage(message, username);
 

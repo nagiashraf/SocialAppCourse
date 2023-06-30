@@ -1,0 +1,25 @@
+<p *ngIf="messages?.length === 0">No messages yet.. say hi by using the messages box below</p>
+<ul *ngIf="messages?.length > 0" class="list-unstyled m-0">
+  <li *ngFor="let message of messages" class="d-flex justify-content-between mb-1" style="border-bottom: 1px dotted #b3a9a9;">
+    <div>
+      <small class="text-muted">
+        <fa-icon [icon]="faClock"></fa-icon>
+        <span class="ms-1">{{ message.messageSentAt | timeago }}</span>
+        <span *ngIf="!message.dateRead && message.senderUsername !== username" class="text-danger ms-1">(unread)</span>
+        <span *ngIf="message.dateRead && message.senderUsername !== username" class="text-success ms-1">(read {{ message.dateRead | timeago }})</span>
+      </small>
+      <p>{{ message.content }}</p>
+    </div>
+    <div>
+      <img [src]="message.senderPhotoUrl || './assets/user.png'" [alt]="message?.senderUsername" style="max-height: 50px;" class="rounded-circle">
+    </div>
+  </li>
+</ul>
+<form #messageForm="ngForm" (ngSubmit)="addMessage()" class="row mt-3" autocomplete="off">
+  <div class="col-10">
+    <input [(ngModel)]="messageContent" name="messageContent" type="text" class="form-control" placeholder="Send a private message" required>
+  </div>
+  <div class="col-2">
+    <button [disabled]="!messageForm.valid" type="submit" class="btn btn-primary" style="width: 100%;">Send</button>
+  </div>
+</form>

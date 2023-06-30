@@ -59,8 +59,8 @@ public class MessageRepository : IMessageRepository
 
         messages = messageParams.Container switch
         {
-            "Inbox" => messages.Where(m => m.Recipient.UserName == messageParams.Username && !m.RecipientDeleted),
-            "Outbox" => messages.Where(m => m.Sender.UserName == messageParams.Username && !m.SenderDeleted),
+            "inbox" => messages.Where(m => m.Recipient.UserName == messageParams.Username && !m.RecipientDeleted),
+            "outbox" => messages.Where(m => m.Sender.UserName == messageParams.Username && !m.SenderDeleted),
             _ => messages.Where(m => m.Recipient.UserName == messageParams.Username && m.DateRead == null)
         };
 

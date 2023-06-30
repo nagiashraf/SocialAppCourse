@@ -1,0 +1,27 @@
+<ul class="pagination justify-content-center">
+  <li [class.disabled]="currentPage <= 1" class="page-item">
+    <button [disabled]="currentPage <= 1" (click)="changePage(1)" class="page-link">
+      <span>&laquo;</span>
+    </button>
+  </li>
+  <li [class.disabled]="currentPage <= 1" class="page-item">
+    <button [disabled]="currentPage <= 1" (click)="changePage(currentPage - 1)" class="page-link">
+      <span>&lsaquo;</span>
+    </button>
+  </li>
+  <li *ngFor="let page of pageNumbers" (click)="changePage(page)" [class.active]="page === currentPage" class="page-item">
+    <button class="page-link">
+      {{ page }}
+    </button>
+  </li>
+  <li [class.disabled]="currentPage >= totalPages" class="page-item">
+    <button [disabled]="currentPage >= totalPages" (click)="changePage(currentPage + 1)" class="page-link">
+      <span>&rsaquo;</span>
+    </button>
+  </li>
+  <li [class.disabled]="currentPage >= totalPages" class="page-item">
+    <button [disabled]="currentPage >= totalPages" (click)="changePage(totalPages)" class="page-link">
+      <span>&raquo;</span>
+    </button>
+  </li>
+</ul>
