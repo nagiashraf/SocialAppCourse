@@ -25,6 +25,9 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { ReusableInputComponent } from './reusable-input/reusable-input.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
+import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
     PhotoEditorComponent,
     ReusableInputComponent,
     PaginationComponent,
-    MemberMessagesComponent
+    MemberMessagesComponent,
+    AdminPanelComponent,
+    HasRoleDirective,
+    RolesModalComponent
   ],
   imports: [
     BrowserModule,

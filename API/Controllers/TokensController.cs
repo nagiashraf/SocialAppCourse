@@ -3,8 +3,10 @@ using API.DTOs;
 using API.Entities;
 using API.Helpers;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Controllers;
@@ -25,7 +27,7 @@ public class TokensController : ControllerBase
         _userManager = userManager;
     }
 
-    [HttpGet("refresh-token")]
+    [HttpPost("refresh-token")]
     public async Task<ActionResult<UserDto>> RefreshToken(TokenDto tokenDto)
     {
         if (tokenDto == null || tokenDto.AccessToken == null || tokenDto.RefreshToken == null)
@@ -36,7 +38,9 @@ public class TokensController : ControllerBase
 
         var username = principal.Identity.Name;
 
-        var user = await _userManager.FindByNameAsync(username);
+        var user = await _userManager.Users
+                .Include(u => u.Photos)
+                .SingleOrDefaultAsync(x => x.NormalizedUserName == username.ToUpper());
 
         if (user == null || user.RefreshToken != tokenDto.RefreshToken || user.RefreshTokenExpirationDate <= DateTime.UtcNow)
             return BadRequest("Invalid token");
@@ -52,6 +56,7 @@ public class TokensController : ControllerBase
         {
             Username = user.UserName,
             KnownAs = user.KnownAs,
+            MainPhotoUrl = user.Photos.FirstOrDefault(ph => ph.IsMain)?.Url,
             Token = new JwtSecurityTokenHandler().WriteToken(newAccessSecurityToken),
             TokenExpirationTime = newAccessSecurityToken.ValidTo,
             RefreshToken = newRefreshToken,
@@ -59,6 +64,7 @@ public class TokensController : ControllerBase
         };
     }
 
+    [Authorize]
     [HttpPost("revoke/{username}")]
     public async Task<IActionResult> RevokeToken(string username)
     {

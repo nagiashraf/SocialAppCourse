@@ -13,11 +13,11 @@ public class MessageHub : Hub<IMessageClient>
     private readonly IMessageRepository _messageRepository;
     private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
-    private readonly IHubContext<PresenceHub> _presenceHub;
+    private readonly IHubContext<PresenceHub, IPresenceClient> _presenceHub;
     private readonly PresenceTracker _presenceTracker;
 
     public MessageHub(IMessageRepository messageRepository, IMapper mapper, UserManager<AppUser> userManager,
-        IHubContext<PresenceHub> presenceHub, PresenceTracker presenceTracker)
+        IHubContext<PresenceHub, IPresenceClient> presenceHub, PresenceTracker presenceTracker)
     {
         _messageRepository = messageRepository;
         _mapper = mapper;
@@ -78,8 +78,7 @@ public class MessageHub : Hub<IMessageClient>
             var recipientConnections = await _presenceTracker.GetUserConnections(recipient.UserName);
             if (recipientConnections != null)
             {
-                await _presenceHub.Clients.Clients(recipientConnections)
-                    .SendAsync("NewMessageReceived", new { username = sender.UserName, knownAs = sender.KnownAs});
+                await _presenceHub.Clients.Clients(recipientConnections).NewMessageReceived(sender.UserName, sender.KnownAs);
             }
         }
 
@@ -120,6 +119,6 @@ public class MessageHub : Hub<IMessageClient>
 
         if (await _messageRepository.SaveAllAsync()) return group;
 
-        throw new HubException("Failed to join the group");
+        throw new HubException("Failed to remove from the group");
     }
 }

@@ -36,30 +36,6 @@ public class MessagesController : ControllerBase
         return _mapper.Map<MessageDto>(message);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<MessageDto>> AddMessage(CreateMessageDto createMessageDto)
-    {
-        var senderUsername = User.FindFirst(ClaimTypes.Name)?.Value;
-
-        if (senderUsername == createMessageDto.RecipientUsername.ToLower())
-            return BadRequest("You cannot send messages to yourself");
-
-        var sender = await _userRepository.GetUserByUsernameAsync(senderUsername);
-        if (sender is null) return NotFound("User not found");
-
-        var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
-        if (recipient is null) return NotFound("User not found");
-
-        createMessageDto.Sender = sender;
-        createMessageDto.Recipient = recipient;
-        
-        var message = await _messageRepository.AddMessage(createMessageDto);
-
-        var messageDto = _mapper.Map<MessageDto>(message);
-
-        return CreatedAtAction(nameof(GetMessage), new { messageId = messageDto.Id }, messageDto);
-    }
-
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteMessage(int id)
     {
@@ -89,18 +65,44 @@ public class MessagesController : ControllerBase
         return messages;
     }
 
-    [HttpGet("thread/{recipientUsername}")]
-    public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string recipientUsername)
-    {
-        var currentUsername = User.FindFirst(ClaimTypes.Name)?.Value;
-        var user = await _userRepository.GetUserByUsernameAsync(currentUsername);
-        if (user is null) return NotFound("User not found");
+    // USE SIGNALR INSTEAD OF API //
+    
+    // [HttpPost]
+    // public async Task<ActionResult<MessageDto>> AddMessage(CreateMessageDto createMessageDto)
+    // {
+    //     var senderUsername = User.FindFirst(ClaimTypes.Name)?.Value;
 
-        var recipient = await _userRepository.GetUserByUsernameAsync(recipientUsername);
-        if (recipient is null) return NotFound("User not found");
+    //     if (senderUsername == createMessageDto.RecipientUsername.ToLower())
+    //         return BadRequest("You cannot send messages to yourself");
 
-        var messages = await _messageRepository.GetMessageThreadAsync(currentUsername, recipientUsername);
+    //     var sender = await _userRepository.GetUserByUsernameAsync(senderUsername);
+    //     if (sender is null) return NotFound("User not found");
 
-        return Ok(messages);
-    }
+    //     var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
+    //     if (recipient is null) return NotFound("User not found");
+
+    //     createMessageDto.Sender = sender;
+    //     createMessageDto.Recipient = recipient;
+        
+    //     var message = await _messageRepository.AddMessage(createMessageDto);
+
+    //     var messageDto = _mapper.Map<MessageDto>(message);
+
+    //     return CreatedAtAction(nameof(GetMessage), new { messageId = messageDto.Id }, messageDto);
+    // }
+
+//     [HttpGet("thread/{recipientUsername}")]
+//     public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string recipientUsername)
+//     {
+//         var currentUsername = User.FindFirst(ClaimTypes.Name)?.Value;
+//         var user = await _userRepository.GetUserByUsernameAsync(currentUsername);
+//         if (user is null) return NotFound("User not found");
+
+//         var recipient = await _userRepository.GetUserByUsernameAsync(recipientUsername);
+//         if (recipient is null) return NotFound("User not found");
+
+//         var messages = await _messageRepository.GetMessageThreadAsync(currentUsername, recipientUsername);
+
+//         return Ok(messages);
+//     }
 }

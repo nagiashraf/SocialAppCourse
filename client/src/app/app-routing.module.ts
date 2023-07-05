@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
@@ -11,6 +11,9 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberDetailRouteReuseStrategy } from './_routeReuseStrategies/memberDetailRouteReuseStrategy ';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { AdminGuard } from './_guards/admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +22,8 @@ const routes: Routes = [
     { path: 'members/:username', component: MemberDetailComponent, resolve:{ loadedMember: MemberDetailResolver }},
     { path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard] },
     { path: 'lists', component: ListsComponent },
-    { path: 'messages', component: MessagesComponent }
+    { path: 'messages', component: MessagesComponent },
+    { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard] }
   ]},
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent }
@@ -27,6 +31,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [{provide: RouteReuseStrategy, useClass: MemberDetailRouteReuseStrategy}]
 })
 export class AppRoutingModule { }

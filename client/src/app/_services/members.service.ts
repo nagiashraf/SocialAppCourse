@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
@@ -21,6 +21,11 @@ export class MembersService {
   resetUserParams() {
     this.userParams = new UserParams();
     return this.userParams;
+  }
+
+  resetMemberCache() {
+    this.memberCache = new Map();
+    return this.memberCache;
   }
 
   getMembers(userParams: UserParams) {

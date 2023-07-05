@@ -2,6 +2,9 @@
   <div class="card col-lg-4">
   <img src="{{member.mainPhotoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="img-thumbnail">
     <div class="card-body">
+      <div *ngIf="(presenceService.onlineUsers$ | async).includes(member.username)" class="mb-2">
+        <fa-icon [icon]="faUserCircle" class="text-success"></fa-icon> Online now
+      </div>
       <div>
         <strong>Location:</strong>
         <p>{{member.city}}, {{member.country}}</p>
@@ -29,16 +32,16 @@
   <div class="col-lg-8">
     <ul #tabs class="nav nav-tabs" id="myTab">
       <li class="nav-item">
-        <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button">About {{member.knownAs}}</button>
+        <button (click)="onTabClicked('about')" class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button">About {{member.knownAs}}</button>
       </li>
       <li class="nav-item">
-        <button class="nav-link" id="interests-tab" data-bs-toggle="tab" data-bs-target="#interests" type="button">Interests</button>
+        <button (click)="onTabClicked('interests')" class="nav-link" id="interests-tab" data-bs-toggle="tab" data-bs-target="#interests" type="button">Interests</button>
       </li>
       <li class="nav-item">
-        <button class="nav-link" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button">Photos</button>
+        <button (click)="onTabClicked('photos')" class="nav-link" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button">Photos</button>
       </li>
       <li class="nav-item">
-        <button (click)="loadMessages()" (tabActivated)="onMessageTabActivated($event)" class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button">Messages</button>
+        <button (click)="onTabClicked('messages')" (tabActivated)="onMessageTabActivated($event)" class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button">Messages</button>
       </li>
     </ul>
     <div #tabContents class="tab-content" id="TabContent">
@@ -59,7 +62,7 @@
         <gallery *ngIf="member.photos?.length > 0" [items]="images" thumbPosition="left" imageSize="cover"></gallery>
       </div>
       <div class="tab-pane fade" id="messages">
-        <app-member-messages [messages]="messages" [username]="member.username"></app-member-messages>
+        <app-member-messages [username]="member.username"></app-member-messages>
       </div>
     </div>
   </div>

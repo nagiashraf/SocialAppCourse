@@ -22,6 +22,9 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
         </li>
+        <li *hasRole="['Moderator', 'Admin']" class="nav-item">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin</a>
+        </li>
       </ul>
       <div class="dropdown" *ngIf="accountService.currentUser$ | async as user">
         <img src="{{user.mainPhotoUrl || './assets/user.png'}}" alt="Profile Picture">

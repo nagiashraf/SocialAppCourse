@@ -10,17 +10,15 @@ import { MessageService } from 'src/app/_services/message.service';
   styleUrls: ['./member-messages.component.css']
 })
 export class MemberMessagesComponent {
-  @Input() messages: Message[];
   @Input() username: string;
   @ViewChild('messageForm') messageForm: NgForm;
   faClock = faClock;
   messageContent: string;
 
-  constructor(private messageService: MessageService) {}
+  constructor(public messageService: MessageService) {}
 
   addMessage() {
-    this.messageService.addMessage(this.username, this.messageContent).subscribe(message => {
-      this.messages.push(message)
+    this.messageService.addMessage(this.username, this.messageContent).then(() => {
       this.messageForm.reset();
     });
   }
